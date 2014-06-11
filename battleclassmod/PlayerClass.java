@@ -1,11 +1,18 @@
 package battleclassmod;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 
 public class PlayerClass implements IExtendedEntityProperties {
 
@@ -62,6 +69,60 @@ public class PlayerClass implements IExtendedEntityProperties {
 	@Override
 	public void init( Entity entity, World world ){
 		
+	}
+	
+	/*
+	 * Syncing
+	 */
+	public final void syncProperties(){
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		
+		try {
+			outputStream.writeUTF(this.playerClass);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		Packet250CustomPayload packet = new Packet250CustomPayload( BCMInfo.CHANNEL, bos.toByteArray() );
+		
+		if (!player.worldObj.isRemote) {
+			EntityPlayerMP player1 = (EntityPlayerMP) player;
+			PacketDispatcher.sendPacketToPlayer(packet, (Player) player1);
+		}
+	}
+	
+	//Sets Class
+	public final void setClass(String bcm){
+		this.playerClass = bcm;
+		this.syncProperties();
+	}
+	
+	/*
+	 * Methods to save/load data from CommonProxy
+	 */
+	public static String getSaveKey( EntityPlayer player ){
+		return player.username + ":" + EXT_PROP_NAME;
+	}
+	
+	public static void saveProxyData( EntityPlayer player ){
+		PlayerClass playerData = PlayerClass.get(player);
+		NBTTagCompound savedData = new NBTTagCompound();
+		
+		playerData.saveNBTData(savedData);
+		
+		CommonProxy.storeEntityData(getSaveKey(player), savedData);
+	}
+	
+	public static void loadProxyData( EntityPlayer player ){
+		PlayerClass playerData = PlayerClass.get(player);
+		NBTTagCompound savedData = CommonProxy.getEntityData(getSaveKey(player));
+		
+		if ( savedData != null ){
+			playerData.loadNBTData(savedData);
+		}
+		
+		playerData.syncProperties();
 	}
 	
 	/*
