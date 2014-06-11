@@ -1,5 +1,6 @@
 package battleclassmod;
 
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -19,6 +20,8 @@ public class BattleClassMod {
 
 	@EventHandler
 	public static void Init( FMLInitializationEvent event ){
+		
+		MinecraftForge.EVENT_BUS.register(new BCMEventHandler());
 		
 	}
 	
