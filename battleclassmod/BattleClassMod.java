@@ -1,6 +1,7 @@
 package battleclassmod;
 
 import net.minecraftforge.common.MinecraftForge;
+import battleclassmod.items.Items;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -15,7 +16,7 @@ public class BattleClassMod {
 	
 	@EventHandler
 	public static void preInit( FMLPreInitializationEvent event ){
-		
+		Items.init();
 	}
 
 	@EventHandler
