@@ -76,6 +76,8 @@ public class PlayerClass implements IExtendedEntityProperties {
 			
 			//debug
 			System.out.println("[PlayerClasses] class chosen confirmed");
+		} else if( this.playerClass.equals(bcm) ){
+			player.addChatMessage("You already belong to the Order of the " + EnumChatFormatting.RED + this.playerClass);
 		} else {
 			this.playerClass = bcm;
 			player.addChatMessage("You have chosen to change your path. The Order of the " + EnumChatFormatting.RED + this.playerClass);
