@@ -19,5 +19,6 @@ hs_err_pid*
 *.cfg
 forge_logo.png
 mcpmod.info
-start.java
+Start.java
 fmlversion.properties
+deobfuscation_data-1.6.4.lzma
