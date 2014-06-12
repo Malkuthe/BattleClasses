@@ -1,7 +1,9 @@
 package battleclassmod;
 
 import net.minecraftforge.common.MinecraftForge;
+import battleclassmod.config.ConfigHandler;
 import battleclassmod.items.Items;
+import battleclassmod.keybinds.KeyBindHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
@@ -17,6 +19,8 @@ public class BattleClassMod {
 	
 	@EventHandler
 	public static void preInit( FMLPreInitializationEvent event ){
+		ConfigHandler.Init(event.getSuggestedConfigurationFile());
+		KeyBindHandler.Init();
 		Items.init();
 	}
 

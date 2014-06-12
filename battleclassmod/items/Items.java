@@ -1,18 +1,19 @@
 package battleclassmod.items;
 
+import battleclassmod.config.Configs;
 import net.minecraft.item.Item;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class Items {
 
-	public static Item dummyItem;
+	public static Item boonItem;
 	
 	public static void init(){
-		dummyItem = new DummyItem(ItemInfo.dummyItemDefault);
+		boonItem = new BoonItem(Configs.boonID);
 	}
 	
 	public static void addNames() {
-		LanguageRegistry.addName(dummyItem, ItemInfo.dummyItemLocalized);
+		LanguageRegistry.addName(boonItem, ItemInfo.boonItemLocalized);
 	}
 	
 	

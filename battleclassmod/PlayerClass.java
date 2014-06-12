@@ -11,6 +11,7 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
+import battleclassmod.config.Configs;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -22,7 +23,7 @@ public class PlayerClass implements IExtendedEntityProperties {
 	
 	public PlayerClass( EntityPlayer player ){
 		this.player = player;
-		this.playerClass = "classless";
+		this.playerClass = "Novice";
 	}
 	
 	//Just for code cleanliness according to the tutorial
@@ -131,17 +132,17 @@ public class PlayerClass implements IExtendedEntityProperties {
 	
 	//changes class
 	public void ClassChange( String bcm ){
-		if ( this.playerClass.equals("classless") ) {
+		if ( this.playerClass.equals("Novice") ) {
 			this.playerClass = bcm;
-			player.addChatMessage("Welcome, novice, into the ranks of the Order of the " + EnumChatFormatting.RED + this.playerClass );
+			player.addChatMessage( Configs.noviceJoin + EnumChatFormatting.RED + this.playerClass + EnumChatFormatting.RESET + Configs.noviceJoinCont );
 			
 			//debug
 			System.out.println("[PlayerClasses] class chosen confirmed");
 		} else if( this.playerClass.equals(bcm) ){
-			player.addChatMessage("You already belong to the Order of the " + EnumChatFormatting.RED + this.playerClass);
+			player.addChatMessage( Configs.classChangeErr + EnumChatFormatting.RED + this.playerClass + EnumChatFormatting.RESET + Configs.classChangeErrCont);
 		} else {
 			this.playerClass = bcm;
-			player.addChatMessage("You have chosen to change your path. The Order of the " + EnumChatFormatting.RED + this.playerClass);
+			player.addChatMessage( Configs.classChange + EnumChatFormatting.RED + this.playerClass + EnumChatFormatting.RESET + Configs.classChangeCont);
 			
 			//debug
 			System.out.println("[PlayerClasses] class change confirmed");
@@ -149,10 +150,10 @@ public class PlayerClass implements IExtendedEntityProperties {
 	}
 	
 	public void ClassCheck(){
-		if ( this.playerClass.equals("classless") ) {
-			player.addChatMessage("You are not a member of any Order, you are " + EnumChatFormatting.RED + "classless");
+		if ( this.playerClass.equals("Novice") ) {
+			player.addChatMessage( Configs.classless + EnumChatFormatting.RED + this.playerClass + EnumChatFormatting.RESET + Configs.classlessCont);
 		} else {
-			player.addChatMessage("You belong to the Order of the " + EnumChatFormatting.RED + this.playerClass);
+			player.addChatMessage( Configs.classCheck + EnumChatFormatting.RED + this.playerClass + EnumChatFormatting.RESET + Configs.classCheckCont);
 		}
 	}
 }

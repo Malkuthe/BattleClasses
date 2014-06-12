@@ -7,13 +7,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class DummyItem extends Item {
+public class BoonItem extends Item {
 	
-	public DummyItem(int id){
+	public BoonItem(int id){
 		super(id);
 		setCreativeTab(CreativeTabs.tabCombat);
 		setMaxStackSize(1);
-		setUnlocalizedName(ItemInfo.dummyItemUnlocalized);
+		setUnlocalizedName(ItemInfo.boonItemUnlocalized);
 	}
 
 	@Override
