@@ -49,10 +49,10 @@ public class PlayerClass implements IExtendedEntityProperties {
 		//setting variables
 		bcmClass.setString("PlayerClass", this.playerClass);
 		
+		this.inventory.writeToNBT(bcmClass);
+		
 		//adding custom tag to player's tag
 		compound.setTag(EXT_PROP_NAME, bcmClass);
-		
-		this.inventory.writeToNBT(compound);
 		
 		//debug
 		System.out.println("[PlayerClasses] saving class " + this.playerClass);
@@ -67,7 +67,7 @@ public class PlayerClass implements IExtendedEntityProperties {
 		//retrieving data from tag compound
 		this.playerClass = bcmClass.getString("PlayerClass");
 		
-		this.inventory.readFromNBT(compound);
+		this.inventory.readFromNBT(bcmClass);
 		
 		//debug
 		System.out.println("[PlayerClasses] loading class " + this.playerClass);
@@ -82,12 +82,12 @@ public class PlayerClass implements IExtendedEntityProperties {
 	 * Syncing
 	 */
 	public final void syncProperties(){
-		ByteArrayOutputStream bos = new ByteArrayOutputStream(9);
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 		
 		try {
-			outputStream.writeUTF(this.playerClass);
 			outputStream.writeByte(BCMPacketHandler.OPEN_SERVER_GUI);
+			outputStream.writeUTF(this.playerClass);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

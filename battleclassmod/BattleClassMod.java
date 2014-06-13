@@ -25,28 +25,22 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class BattleClassMod {
 	
 	private static int modGuiIndex = 0;
-	public static final int GUI_CLASS_INTERFACE_INV = modGuiIndex++;
+	public static final int GUI_CLASS_INTERFACE_INV = 19;
 	
 	@Instance(BCMInfo.ID)
 	public static BattleClassMod instance = new BattleClassMod();
 	
 	@EventHandler
-	@SideOnly(Side.CLIENT)
-	public void clientPreInit( FMLPreInitializationEvent event ){
-		KeyBindHandler.Init();
-	}
-	
-	@EventHandler
 	public void preInit( FMLPreInitializationEvent event ){
 		ConfigHandler.Init(event.getSuggestedConfigurationFile());
 		Items.init();
-		NetworkRegistry.instance().registerGuiHandler(this, new BCMGuiHandler());
 	}
 
 	@EventHandler
 	public void Init( FMLInitializationEvent event ){
 		
 		MinecraftForge.EVENT_BUS.register(new BCMEventHandler());
+		NetworkRegistry.instance().registerGuiHandler(this, new BCMGuiHandler());
 		
 	}
 	
