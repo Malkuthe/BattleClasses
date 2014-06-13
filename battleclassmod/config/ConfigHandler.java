@@ -15,7 +15,7 @@ public class ConfigHandler {
 		/*
 		 * Item Configs
 		 */
-		int boonId = config.get(Configs.CATEGORY_ITEMS, Configs.boonID_NAME, Configs.boonID_DEFAULT).getInt();
+		Configs.boonID = config.get(Configs.CATEGORY_ITEMS, Configs.boonID_NAME, Configs.boonID_DEFAULT).getInt() - 256;
 		
 		/*
 		 * Message Configs
@@ -34,6 +34,11 @@ public class ConfigHandler {
 		
 		Configs.classCheck = config.get(Configs.CATEGORY_MESSAGES, Configs.classCheck_NAME, Configs.classCheck_DEFAULT, Configs.classCheck_DESC).getString();
 		Configs.classCheckCont = config.get(Configs.CATEGORY_MESSAGES, Configs.classCheckCont_NAME, Configs.classCheckCont_DEFAULT, Configs.classCheckCont_DESC).getString();
+		
+		/*
+		 * Miscellaneous Configs
+		 */
+		Configs.defaultClass = config.get(Configs.CATEGORY_MISCELLANEOUS, Configs.defaultClass_NAME, Configs.defaultClass_DEFAULT, Configs.defaultClass_DESC).getString();
 		
 		config.save();
 	}

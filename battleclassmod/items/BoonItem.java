@@ -1,5 +1,7 @@
 package battleclassmod.items;
 
+import org.lwjgl.input.Keyboard;
+
 import battleclassmod.PlayerClass;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,9 +20,9 @@ public class BoonItem extends Item {
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player){
-		if (!world.isRemote){
-			PlayerClass props = PlayerClass.get(player);
-			props.ClassChange("Knight");
+		if (!world.isRemote && (Keyboard.isKeyDown(Keyboard.KEY_RSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))){
+				PlayerClass props = PlayerClass.get(player);
+				props.ClassChange("Knight");
 		}
 		return itemstack;
 	}

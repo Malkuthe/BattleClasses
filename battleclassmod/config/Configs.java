@@ -7,6 +7,7 @@ public class Configs {
 	 */
 	public static final String CATEGORY_ITEMS = "Item ID's";
 	public static final String CATEGORY_MESSAGES = "Message Configurations";
+	public static final String CATEGORY_MISCELLANEOUS = "Miscellaneous Configurations";
 	
 	/*
 	 * Items
@@ -70,4 +71,12 @@ public class Configs {
 	public static final String classCheck_DESC = "Message displayed when checking class. Comes before 'class' identification on message.";
 	public static final String classCheckCont_DESC = "Second part. Comes after 'class' identification on message.";
 	
+	/*
+	 * Miscellaneous Configurations
+	 */
+	//Default Class
+	public static String defaultClass;
+	public static final String defaultClass_NAME = "Default Class Name";
+	public static final String defaultClass_DEFAULT = "Novice";
+	public static final String defaultClass_DESC = "The name of the 'classless' class. Players automatically added to this group upon first joining.";
 }

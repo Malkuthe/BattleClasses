@@ -12,6 +12,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import battleclassmod.config.Configs;
+import battleclassmod.inventories.BCMInterfaceInventory;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -20,10 +21,11 @@ public class PlayerClass implements IExtendedEntityProperties {
 	public final static String EXT_PROP_NAME = "PlayerClass";
 	private final EntityPlayer player;
 	private String playerClass;
+	public final BCMInterfaceInventory inventory = new BCMInterfaceInventory();
 	
 	public PlayerClass( EntityPlayer player ){
 		this.player = player;
-		this.playerClass = "Novice";
+		this.playerClass = Configs.defaultClass;
 	}
 	
 	//Just for code cleanliness according to the tutorial
@@ -50,6 +52,8 @@ public class PlayerClass implements IExtendedEntityProperties {
 		//adding custom tag to player's tag
 		compound.setTag(EXT_PROP_NAME, bcmClass);
 		
+		this.inventory.writeToNBT(compound);
+		
 		//debug
 		System.out.println("[PlayerClasses] saving class " + this.playerClass);
 	}
@@ -62,6 +66,8 @@ public class PlayerClass implements IExtendedEntityProperties {
 		
 		//retrieving data from tag compound
 		this.playerClass = bcmClass.getString("PlayerClass");
+		
+		this.inventory.readFromNBT(compound);
 		
 		//debug
 		System.out.println("[PlayerClasses] loading class " + this.playerClass);
@@ -132,7 +138,7 @@ public class PlayerClass implements IExtendedEntityProperties {
 	
 	//changes class
 	public void ClassChange( String bcm ){
-		if ( this.playerClass.equals("Novice") ) {
+		if ( this.playerClass.equals(Configs.defaultClass) ) {
 			this.playerClass = bcm;
 			player.addChatMessage( Configs.noviceJoin + EnumChatFormatting.RED + this.playerClass + EnumChatFormatting.RESET + Configs.noviceJoinCont );
 			
@@ -149,11 +155,50 @@ public class PlayerClass implements IExtendedEntityProperties {
 		}
 	}
 	
+	public void ClassChangeDiff( EntityPlayer commandplayer, EntityPlayer player, String bcmclass ){
+		String playername = ((EntityPlayer) player).username;
+		if ( this.playerClass.equals(bcmclass) ){
+			player.addChatMessage( EnumChatFormatting.GREEN + playername + EnumChatFormatting.RESET + " is already a " + EnumChatFormatting.RED + this.playerClass);
+		} else {
+			String orgClass = this.playerClass;
+			this.playerClass = bcmclass;
+			player.addChatMessage( EnumChatFormatting.GREEN + "[SERVER]" + EnumChatFormatting.RESET + "Your class has been changed from " + EnumChatFormatting.RED + orgClass + EnumChatFormatting.RESET + " to " + EnumChatFormatting.RED + this.playerClass );
+			commandplayer.addChatMessage( EnumChatFormatting.GREEN + playername + "'s " + EnumChatFormatting.RESET + "class has been changed from " + EnumChatFormatting.RED + orgClass + EnumChatFormatting.RESET + " to " + EnumChatFormatting.RED + this.playerClass );
+		}
+	}
+	
+	public void Demote( EntityPlayer player ){
+		if (this.playerClass.equals(Configs.defaultClass)){
+			player.addChatMessage("You are already a " + EnumChatFormatting.RED + Configs.defaultClass);
+		} else {
+			this.playerClass = Configs.defaultClass;
+			player.addChatMessage("You have been successfully demoted to " + EnumChatFormatting.RED + Configs.defaultClass);
+		}
+	}
+	
+	public void DemoteDiff( EntityPlayer commandplayer, EntityPlayer player){
+		String playername = ((EntityPlayer) player).username;
+		if (this.playerClass.equals(Configs.defaultClass)){
+			commandplayer.addChatMessage(EnumChatFormatting.GREEN + playername + EnumChatFormatting.RESET + " is already a " + EnumChatFormatting.RED + Configs.defaultClass);
+		} else {
+			String orgclass = this.playerClass;
+			this.playerClass = Configs.defaultClass;
+			commandplayer.addChatMessage(EnumChatFormatting.GREEN + playername + EnumChatFormatting.RESET + " has been successfully demoted from " + EnumChatFormatting.RED + orgclass + EnumChatFormatting.RESET + " to " + EnumChatFormatting.RED + Configs.defaultClass);
+			player.addChatMessage(EnumChatFormatting.GREEN + "[SERVER]" + EnumChatFormatting.RESET + "You have been demoted from " + EnumChatFormatting.RED + orgclass + EnumChatFormatting.RESET + " to " + EnumChatFormatting.RED + Configs.defaultClass);
+		}
+	}
+	
 	public void ClassCheck(){
-		if ( this.playerClass.equals("Novice") ) {
+		if ( this.playerClass.equals(Configs.defaultClass) ) {
 			player.addChatMessage( Configs.classless + EnumChatFormatting.RED + this.playerClass + EnumChatFormatting.RESET + Configs.classlessCont);
 		} else {
 			player.addChatMessage( Configs.classCheck + EnumChatFormatting.RED + this.playerClass + EnumChatFormatting.RESET + Configs.classCheckCont);
 		}
 	}
+	
+	public void ClassCheckDiff(EntityPlayer player){
+		String playername = ((EntityPlayer) player).username;
+		player.addChatMessage( EnumChatFormatting.GREEN + playername + EnumChatFormatting.RESET + " is a " + EnumChatFormatting.RED + this.playerClass);
+	}
+	
 }
