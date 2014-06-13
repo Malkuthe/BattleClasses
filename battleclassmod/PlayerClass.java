@@ -82,11 +82,12 @@ public class PlayerClass implements IExtendedEntityProperties {
 	 * Syncing
 	 */
 	public final void syncProperties(){
-		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(9);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 		
 		try {
 			outputStream.writeUTF(this.playerClass);
+			outputStream.writeByte(BCMPacketHandler.OPEN_SERVER_GUI);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

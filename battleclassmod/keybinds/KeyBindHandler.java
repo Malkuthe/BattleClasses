@@ -7,7 +7,9 @@ import net.minecraft.client.settings.KeyBinding;
 
 import org.lwjgl.input.Keyboard;
 
+import battleclassmod.BCMPacketHandler;
 import battleclassmod.BattleClassMod;
+import battleclassmod.PacketOpenServerGui;
 import battleclassmod.inventories.containers.BCMInterfaceContainer;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
@@ -50,7 +52,7 @@ public class KeyBindHandler extends KeyHandler{
 		if (tickEnd) {
 			if (mc.inGameHasFocus) {
 				if (kb == keys[CLASS_INTERFACE]){
-					PacketOpenServerGui(BattleClassMod.GUI_CLASS_INTERFACE_INV);
+					PacketOpenServerGui.getPacket(BattleClassMod.GUI_CLASS_INTERFACE_INV);
 				}
 			} else {
 				if (kb == keys[CLASS_INTERFACE] && player.openContainer instanceof BCMInterfaceContainer){
