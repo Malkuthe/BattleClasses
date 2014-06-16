@@ -16,6 +16,17 @@ public class Configs {
 	public static int boonID;
 	public static final String boonID_NAME = "Gods' Boon";
 	public static final int boonID_DEFAULT = 24201;
+	//Songs
+	public static int songsID;
+	public static final String songsID_NAME = "Songs";
+	public static final int songsID_DEFAULT = 24202;
+	
+	/*
+	 * General Classes Config
+	 */
+	public static int classNumber;
+	public static final String classNumber_NAME = "Number of Classes";
+	public static final int classNumber_DEFAULT = 8;
 	
 	/*
 	 * Messages

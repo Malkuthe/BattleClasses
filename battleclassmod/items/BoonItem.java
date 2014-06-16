@@ -3,7 +3,6 @@ package battleclassmod.items;
 import java.util.List;
 
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -12,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import battleclassmod.BCMInfo;
+import battleclassmod.BattleClassMod;
 import battleclassmod.PlayerClass;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -20,7 +20,7 @@ public class BoonItem extends Item {
 	
 	public BoonItem(int id){
 		super(id);
-		setCreativeTab(CreativeTabs.tabCombat);
+		setCreativeTab(BattleClassMod.tabCustom);
 		setMaxStackSize(1);
 		setUnlocalizedName(ItemInfo.boonItemUnlocalized);
 	}
