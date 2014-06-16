@@ -22,6 +22,7 @@ public class SongsItem extends Item{
 		setCreativeTab(BattleClassMod.tabCustom);
 		setMaxStackSize(16);
 		setHasSubtypes(true);
+		setMaxDamage(0);
 	}
 	
 	@Override

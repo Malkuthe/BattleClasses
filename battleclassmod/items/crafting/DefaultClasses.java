@@ -29,7 +29,7 @@ public class DefaultClasses {
 	
 	public void Songs(){
 		for(int i = 0; i < SONGS_NUMBER; ++i){
-			ItemStack itemstack = new ItemStack(Items.songsItem, 1, i);
+			ItemStack itemstack = new ItemStack(Items.songsItem,1,i);
 			songs[i] = itemstack;
 		}
 	}

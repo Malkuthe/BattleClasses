@@ -5,6 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import battleclassmod.commands.CommandHandler;
 import battleclassmod.config.ConfigHandler;
+import battleclassmod.config.Configs;
 import battleclassmod.guis.BCMGuiHandler;
 import battleclassmod.items.Items;
 import battleclassmod.items.crafting.BoonCraftingHandler;
@@ -48,7 +49,6 @@ public class BattleClassMod {
 		MinecraftForge.EVENT_BUS.register(new BCMEventHandler());
 		NetworkRegistry.instance().registerGuiHandler(this, new BCMGuiHandler());
 		proxy.registerRenderers();
-		BoonCraftingHandler.Init();
 		
 	}
 	
