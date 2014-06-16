@@ -13,7 +13,7 @@ public class Items{
 	public static Item boonItem;
 	
 	public static void init(){
-		boonItem = new BoonItem(Configs.boonID);
+		boonItem = new BoonItem(Configs.boonID).setTextureName(BCMInfo.ID + ":" + ItemInfo.boonItemUnlocalized);
 	}
 	
 	public static void addNames() {

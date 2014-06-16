@@ -29,6 +29,13 @@ public class BoonItem extends Item {
 		itemstack.stackTagCompound = new NBTTagCompound();
 	}
 
+	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean j){
+		if (itemstack.stackTagCompound == null){
+			itemstack.setTagCompound(new NBTTagCompound());
+			itemstack.stackTagCompound.setString("Owner", "none");
+		}
+	}
+	
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player){
 		NBTTagCompound properties = itemstack.stackTagCompound;
@@ -54,13 +61,6 @@ public class BoonItem extends Item {
 		return itemstack;
 	}
 	
-	public void OnUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean j){
-		NBTTagCompound properties = itemstack.stackTagCompound;
-		if (properties.getString("Owner").isEmpty()){
-			properties.setString("Owner", "none");
-		}
-	};
-	
 	private Icon[] iconIndex;
 	
 	@Override
@@ -80,12 +80,29 @@ public class BoonItem extends Item {
 	@SideOnly(Side.CLIENT)
 	public Icon getIcon(ItemStack itemstack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining){
 		NBTTagCompound properties = itemstack.stackTagCompound;
-		if (!properties.getString("Owner").equals("none")){
-			this.itemIcon = iconIndex[1];
-			return iconIndex[1];
-		} 
-			this.itemIcon = iconIndex[0];
+		this.itemIcon = iconIndex[0];
+		if (properties != null){
+			if (properties.getString("Owner") != null && !properties.getString("Owner").equals("none")){
+				return iconIndex[1];
+			} 
 			return iconIndex[0];
+		}
+		return this.itemIcon;
+			
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public Icon getIconIndex(ItemStack itemstack){
+		NBTTagCompound properties = itemstack.stackTagCompound;
+		this.itemIcon = iconIndex[0];
+		if (properties != null){
+			if (properties.getString("Owner") != null && !properties.getString("Owner").equals("none")){
+				return iconIndex[1];
+			} 
+			return iconIndex[0];
+		}
+		return this.itemIcon;
 	}
 	
 	@Override
