@@ -49,6 +49,7 @@ public class BattleClassMod {
 		MinecraftForge.EVENT_BUS.register(new BCMEventHandler());
 		NetworkRegistry.instance().registerGuiHandler(this, new BCMGuiHandler());
 		proxy.registerRenderers();
+		BoonCraftingHandler.Init();
 		
 	}
 	

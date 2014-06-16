@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import battleclassmod.BCMInfo;
 import battleclassmod.BattleClassMod;
 import battleclassmod.PlayerClass;
+import battleclassmod.config.Configs;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -33,6 +34,7 @@ public class BoonItem extends Item {
 		if (itemstack.stackTagCompound == null){
 			itemstack.setTagCompound(new NBTTagCompound());
 			itemstack.stackTagCompound.setString("Owner", "none");
+			itemstack.stackTagCompound.setString("Class", Configs.defaultClass);
 		}
 	}
 	
@@ -51,7 +53,11 @@ public class BoonItem extends Item {
 					
 				} else if (owner.equals(player.username)){
 					PlayerClass props = PlayerClass.get(player);
-					props.ClassChange("Knight");
+					if(properties.getString("Class") == null){
+						props.ClassChange(Configs.defaultClass);
+					} else {
+						props.ClassChange(properties.getString("Class"));
+					}
 				}
 			} else {
 				

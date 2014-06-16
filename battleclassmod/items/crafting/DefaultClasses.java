@@ -10,7 +10,20 @@ public class DefaultClasses {
 	private static final int CLASSES_NUMBER = Configs.classNumber;
 	public static final int SONGS_NUMBER = 12;
 	
-	public static Object[] songs;
+	public static final Object[] songs = {
+		new ItemStack(Items.songsItem,1,0),
+		new ItemStack(Items.songsItem,1,1),
+		new ItemStack(Items.songsItem,1,2),
+		new ItemStack(Items.songsItem,1,3),
+		new ItemStack(Items.songsItem,1,4),
+		new ItemStack(Items.songsItem,1,5),
+		new ItemStack(Items.songsItem,1,6),
+		new ItemStack(Items.songsItem,1,7),
+		new ItemStack(Items.songsItem,1,8),
+		new ItemStack(Items.songsItem,1,9),
+		new ItemStack(Items.songsItem,1,10),
+		new ItemStack(Items.songsItem,1,11)
+	};
 	
 	/*
 	 * 0 - Song of Virtue
@@ -27,19 +40,12 @@ public class DefaultClasses {
 	 * 11 - Song of Divinity
 	 */
 	
-	public void Songs(){
-		for(int i = 0; i < SONGS_NUMBER; ++i){
-			ItemStack itemstack = new ItemStack(Items.songsItem,1,i);
-			songs[i] = itemstack;
-		}
-	}
-	
-	public static String[] defaultClasses = {
+	public static final String[] defaultClasses = {
 		"Squire", "Apprentice", "Thief", "Archer",
 		"Knight", "Mage", "Rogue", "Hunter"
 	};
 
-	public static Object[][] classRecipes = {
+	public static final Object[][] classRecipes = {
 		//Squire
 		{songs[0],songs[0],songs[1],songs[1]},
 		//Apprentice

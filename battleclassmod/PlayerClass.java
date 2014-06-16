@@ -139,7 +139,7 @@ public class PlayerClass implements IExtendedEntityProperties {
 	
 	//changes class
 	public void ClassChange( String bcm ){
-		if ( this.playerClass.equals(Configs.defaultClass) ) {
+		if ( this.playerClass.equals(Configs.defaultClass) && !bcm.equals(Configs.defaultClass)) {
 			this.playerClass = bcm;
 			player.addChatMessage( Configs.noviceJoin + EnumChatFormatting.RED + this.playerClass + EnumChatFormatting.RESET + Configs.noviceJoinCont );
 			
