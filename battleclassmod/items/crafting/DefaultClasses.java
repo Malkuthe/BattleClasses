@@ -29,77 +29,34 @@ public class DefaultClasses {
 	
 	public void Songs(){
 		for(int i = 0; i < SONGS_NUMBER; ++i){
-			ItemStack itemstack = new ItemStack(Configs.songsID, 1, i);
+			ItemStack itemstack = new ItemStack(Items.songsItem, 1, i);
 			songs[i] = itemstack;
 		}
 	}
 	
-	public static Object[][] classRecipes;
-	
-	public void Recipes(){
-		//Squire
-		classRecipes[0][0] = songs[0];
-		classRecipes[0][1] = songs[0];
-		classRecipes[0][2] = songs[1];
-		classRecipes[0][3] = songs[1];
-		
-		//Apprentice
-		classRecipes[1][0] = songs[0];
-		classRecipes[1][1] = songs[0];
-		classRecipes[1][2] = songs[5];
-		classRecipes[1][3] = songs[5];
-		
-		//Thief
-		classRecipes[2][0] = songs[0];
-		classRecipes[2][1] = songs[0];
-		classRecipes[2][2] = songs[6];
-		classRecipes[2][3] = songs[6];
-		
-		//Archer
-		classRecipes[3][0] = songs[0];
-		classRecipes[3][1] = songs[0];
-		classRecipes[3][2] = songs[7];
-		classRecipes[3][3] = songs[7];
-		
-		//Knight
-		classRecipes[4][0] = songs[0];
-		classRecipes[4][1] = songs[11];
-		classRecipes[4][2] = songs[1];
-		classRecipes[4][3] = songs[10];
-		
-		//Mage
-		classRecipes[5][0] = songs[0];
-		classRecipes[5][1] = songs[4];
-		classRecipes[5][2] = songs[5];
-		classRecipes[5][3] = songs[11];
-		
-		//Rogue
-		classRecipes[6][0] = songs[0];
-		classRecipes[6][1] = songs[6];
-		classRecipes[6][2] = songs[8];
-		classRecipes[6][3] = songs[11];
-		
-		//Hunter
-		classRecipes[7][0] = songs[0];
-		classRecipes[7][1] = songs[7];
-		classRecipes[7][2] = songs[10];
-		classRecipes[7][3] = songs[11];
-		
-	}
-	
-	Item boonItem = Items.boonItem;
-	
 	public static String[] defaultClasses = {
-			"Squire", "Apprentice", "Thief", "Archer",
-			"Knight", "Mage", "Rogue", "Hunter"
+		"Squire", "Apprentice", "Thief", "Archer",
+		"Knight", "Mage", "Rogue", "Hunter"
+	};
+
+	public static Object[][] classRecipes = {
+		//Squire
+		{songs[0],songs[0],songs[1],songs[1]},
+		//Apprentice
+		{songs[0],songs[0],songs[5],songs[5]},
+		//Thief
+		{songs[0],songs[0],songs[6],songs[6]},
+		//Archer
+		{songs[0],songs[0],songs[7],songs[7]},
+		//Knight
+		{songs[0],songs[1],songs[10],songs[11]},
+		//Mage
+		{songs[0],songs[4],songs[5],songs[11]},
+		//Rogue
+		{songs[0],songs[6],songs[8],songs[11]},
+		//Hunter
+		{songs[0],songs[7],songs[10],songs[11]}
 	};
 	
-	public DefaultClasses(){
-		
-	}
-	
-	
-	
-	
-
+	Item boonItem = Items.boonItem;
 }

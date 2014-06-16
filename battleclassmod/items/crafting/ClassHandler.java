@@ -13,10 +13,12 @@ public class ClassHandler {
 	private static final int INGREDIENTS_NUMBER = 4;
 	
 	static ItemStack gold = new ItemStack(Item.ingotGold);
+	private static Object[][] classRecipe = new Object[CLASSES_NUMBER][];
+	private static String[] boonClass;
 	
 	public static void BoonClass(int classnum){
-		String boonClass = DefaultClasses.defaultClasses[classnum];
-		Object[][] classRecipe = new Object[CLASSES_NUMBER][]; 
+		boonClass = DefaultClasses.defaultClasses;
+		String bcmBoonClass = boonClass[classnum];
 		
 		for (int i = 0; i < INGREDIENTS_NUMBER; ++i){
 			classRecipe[classnum][i] = DefaultClasses.classRecipes[classnum][i];
@@ -24,7 +26,7 @@ public class ClassHandler {
 		
 		ItemStack boonItem = new ItemStack(Items.boonItem);
 		NBTTagCompound properties = boonItem.stackTagCompound;
-		properties.setString("Class", boonClass);
+		properties.setString("Class", bcmBoonClass);
 		
 		GameRegistry.addRecipe(boonItem, "xax", "boc", "xdx", 'x', gold, 'o', boonItem, 'a', classRecipe[classnum][1],
 				'b', classRecipe[classnum][2], 'c', classRecipe[classnum][3], 'd',classRecipe[classnum][4]);
