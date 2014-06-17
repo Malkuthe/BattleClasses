@@ -202,4 +202,8 @@ public class PlayerClass implements IExtendedEntityProperties {
 		player.addChatMessage( EnumChatFormatting.GREEN + playername + EnumChatFormatting.RESET + " is a " + EnumChatFormatting.RED + this.playerClass);
 	}
 	
+	public String getPlayerClass(){
+		return this.playerClass;
+	}
+	
 }

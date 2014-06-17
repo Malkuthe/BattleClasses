@@ -1,27 +1,35 @@
 package battleclassmod.items;
 
+import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import battleclassmod.BCMInfo;
-import battleclassmod.BattleClassMod;
 import battleclassmod.PlayerClass;
 import battleclassmod.config.Configs;
+import battleclassmod.inventories.BCMInterfaceInventory;
+import battleclassmod.inventories.slots.SlotBoon;
+import battleclassmod.items.crafting.DefaultClasses;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BoonItem extends Item {
 	
+	
 	public BoonItem(int id){
 		super(id);
-		setCreativeTab(BattleClassMod.tabCustom);
+		setCreativeTab(null);
 		setMaxStackSize(1);
 		setUnlocalizedName(ItemInfo.boonItemUnlocalized);
 	}
@@ -35,6 +43,8 @@ public class BoonItem extends Item {
 			itemstack.setTagCompound(new NBTTagCompound());
 			itemstack.stackTagCompound.setString("Owner", "none");
 			itemstack.stackTagCompound.setString("Class", Configs.defaultClass);
+			itemstack.stackTagCompound.setInteger("Level", 1);
+			itemstack.stackTagCompound.setInteger("Tributes", 0);
 		}
 	}
 	
@@ -111,9 +121,48 @@ public class BoonItem extends Item {
 		return this.itemIcon;
 	}
 	
+	@SideOnly(Side.CLIENT)
+	public boolean hasEffect(ItemStack itemstack){
+		if(itemstack.stackTagCompound != null){
+			NBTTagCompound properties = itemstack.stackTagCompound;
+			String bcmclass = properties.getString("Class");
+			String owner = properties.getString("Owner");
+			List<String> list = Arrays.asList(DefaultClasses.tierTwoClasses);
+		
+			if (list.contains(bcmclass) && !owner.equals("none")){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public void addInformation(ItemStack itemstack, EntityPlayer player, List list, boolean bool){
-		
+		if (itemstack.stackTagCompound != null){
+			NBTTagCompound properties = itemstack.stackTagCompound;
+			String owner = properties.getString("Owner");
+			String bcmclass = properties.getString("Class");
+			int level = properties.getInteger("Level");
+			int tributes = properties.getInteger("Tributes");
+			
+			if( owner == player.username ){
+				list.add("Owner: " + EnumChatFormatting.BLUE + owner);
+			} else if ( owner == "none" ){
+				list.add("Owner: " + EnumChatFormatting.YELLOW + owner);
+			} else {
+				list.add("Owner: " + EnumChatFormatting.RED + owner); 
+			}
+			
+			if (bcmclass == Configs.defaultClass){
+				list.add("Class: " + EnumChatFormatting.YELLOW + bcmclass);
+			} else if(bcmclass != Configs.defaultClass) {
+				list.add("Class: " + EnumChatFormatting.GREEN + bcmclass);
+			}
+			
+			list.add("Level: " + level);
+			list.add("Tributes: " + tributes);
+		}
 	}
 	
 }

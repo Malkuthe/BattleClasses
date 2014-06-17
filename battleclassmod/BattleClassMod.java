@@ -49,6 +49,7 @@ public class BattleClassMod {
 		MinecraftForge.EVENT_BUS.register(new BCMEventHandler());
 		NetworkRegistry.instance().registerGuiHandler(this, new BCMGuiHandler());
 		proxy.registerRenderers();
+		DefaultClasses.Init();
 		BoonCraftingHandler.Init();
 		
 	}
@@ -63,13 +64,7 @@ public class BattleClassMod {
 		
 	}
 	
-	public static CreativeTabs tabCustom = new CreativeTabs("battleClasses"){
-		@Override
-		@SideOnly(Side.CLIENT)
-		public Item getTabIconItem(){
-			return Items.boonItem;
-		}
-	};
+	public static CreativeTabs tabCustom = new BCMCreativeTab(CreativeTabs.getNextID(), "battleClasses");
 	
 	@SidedProxy( clientSide = BCMInfo.PROXY_LOCATION + ".ClientProxy", serverSide = BCMInfo.PROXY_LOCATION + ".CommonProxy" )
 	public static CommonProxy proxy;

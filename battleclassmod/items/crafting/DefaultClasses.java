@@ -1,8 +1,11 @@
 package battleclassmod.items.crafting;
 
+import java.util.HashMap;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import battleclassmod.config.Configs;
+import battleclassmod.items.ItemInfo;
 import battleclassmod.items.Items;
 
 public class DefaultClasses {
@@ -10,7 +13,18 @@ public class DefaultClasses {
 	private static final int CLASSES_NUMBER = Configs.classNumber;
 	public static final int SONGS_NUMBER = 12;
 	
-	public static final Object[] songs = {
+	static HashMap<String, ItemStack> songMap = new HashMap<String, ItemStack>();
+	
+	public DefaultClasses(){
+	}
+	
+	public static void Init(){
+		for (int i = 0; i < SONGS_NUMBER; ++i){
+			songMap.put(ItemInfo.songsItemUnlocalized[i], new ItemStack(Items.songsItem,1,i));
+		}
+	}
+	
+	public static Object[] songs = {
 		new ItemStack(Items.songsItem,1,0),
 		new ItemStack(Items.songsItem,1,1),
 		new ItemStack(Items.songsItem,1,2),
@@ -42,6 +56,10 @@ public class DefaultClasses {
 	
 	public static final String[] defaultClasses = {
 		"Squire", "Apprentice", "Thief", "Archer",
+		"Knight", "Mage", "Rogue", "Hunter"
+	};
+	
+	public static final String[] tierTwoClasses = {
 		"Knight", "Mage", "Rogue", "Hunter"
 	};
 

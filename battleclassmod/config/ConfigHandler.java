@@ -27,7 +27,7 @@ public class ConfigHandler {
 		Configs.classChangeErrCont = config.get(Configs.CATEGORY_MESSAGES, Configs.classChangeErrCont_NAME, Configs.classChangeErrCont_DEFAULT, Configs.classChangeErrCont_DESC).getString();
 		
 		Configs.classChange = config.get(Configs.CATEGORY_MESSAGES, Configs.classChange_NAME, Configs.classChange_DEFAULT, Configs.classChange_DESC).getString();
-		Configs.classChangeCont = config.get(Configs.CATEGORY_MESSAGES, Configs.classChangeCont_NAME, Configs.classChange_DEFAULT, Configs.classChangeCont_DESC).getString();
+		Configs.classChangeCont = config.get(Configs.CATEGORY_MESSAGES, Configs.classChangeCont_NAME, Configs.classChangeCont_DEFAULT, Configs.classChangeCont_DESC).getString();
 		
 		Configs.classless = config.get(Configs.CATEGORY_MESSAGES, Configs.classless_NAME, Configs.classless_DEFAULT, Configs.classless_DESC).getString();
 		Configs.classlessCont = config.get(Configs.CATEGORY_MESSAGES, Configs.classlessCont_NAME, Configs.classlessCont_DEFAULT, Configs.classlessCont_DESC).getString();

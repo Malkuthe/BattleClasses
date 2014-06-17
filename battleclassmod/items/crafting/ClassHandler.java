@@ -1,9 +1,12 @@
 package battleclassmod.items.crafting;
 
+import java.util.HashMap;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import battleclassmod.config.Configs;
+import battleclassmod.items.ItemInfo;
 import battleclassmod.items.Items;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -30,6 +33,8 @@ public class ClassHandler {
 		NBTTagCompound properties = boonItem.stackTagCompound;
 		properties.setString("Class", bcmBoonClass);
 		properties.setString("Owner", "none");
+		properties.setInteger("Level", 1);
+		properties.setInteger("Tributes", 0);
 		
 		GameRegistry.addRecipe(boonItem, "xax", "boc", "xdx", 'x', gold, 'o', heart, 'a', classRecipe[classnum][0],
 				'b', classRecipe[classnum][1], 'c', classRecipe[classnum][2], 'd',classRecipe[classnum][3]);
