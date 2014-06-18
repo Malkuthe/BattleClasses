@@ -1,6 +1,7 @@
 package battleclassmod;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -21,6 +22,10 @@ public class BCMEventHandler {
 	
 	@ForgeSubscribe
 	public void onLivingDeathEvent( LivingDeathEvent event ){
+		if ( !event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer){
+			DamageSource source = event.source;
+			System.out.println(source);
+		}
 		if ( !event.entity.worldObj.isRemote && event.entity instanceof EntityPlayer ){
 			
 			PlayerClass.saveProxyData((EntityPlayer) event.entity);

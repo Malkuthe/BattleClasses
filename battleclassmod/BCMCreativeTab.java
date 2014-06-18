@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import battleclassmod.config.Configs;
 import battleclassmod.items.Items;
-import battleclassmod.items.crafting.DefaultClasses;
+import battleclassmod.items.crafting.BCMClasses;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -25,7 +25,7 @@ public class BCMCreativeTab extends CreativeTabs{
 	
 	@SideOnly(Side.CLIENT)
 	public void displayAllReleventItems(List itemList){
-		String[] defaultclasses = DefaultClasses.defaultClasses;
+		String[] defaultclasses = BCMClasses.defaultClasses;
 		for (int i = 0; i < 8; ++i){
 			if (i == 8){
 				ItemStack boonStack = new ItemStack(Items.boonItem, 1, 0);

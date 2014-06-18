@@ -2,10 +2,13 @@ package battleclassmod.items;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeInstance;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -19,13 +22,11 @@ import battleclassmod.BCMInfo;
 import battleclassmod.PlayerClass;
 import battleclassmod.config.Configs;
 import battleclassmod.inventories.BCMInterfaceInventory;
-import battleclassmod.inventories.slots.SlotBoon;
-import battleclassmod.items.crafting.DefaultClasses;
+import battleclassmod.items.crafting.BCMClasses;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BoonItem extends Item {
-	
 	
 	public BoonItem(int id){
 		super(id);
@@ -39,6 +40,31 @@ public class BoonItem extends Item {
 	}
 
 	public void onUpdate(ItemStack itemstack, World world, Entity entity, int i, boolean j){
+		EntityPlayer player = (EntityPlayer) entity;
+		PlayerClass props = PlayerClass.get(player);
+		String playerClass = props.getPlayerClass();
+		
+		AttributeInstance thiefspeed = player.getEntityAttribute(SharedMonsterAttributes.movementSpeed);
+		AttributeModifier speed;
+		
+		BCMInterfaceInventory inventoryCustom = props.inventory;
+		ItemStack boonStack = inventoryCustom.getStackInSlot(0);
+		speed = new AttributeModifier(player.getPersistentID(), "Thief's Haste", 3.0, 2);
+		if (boonStack != null){
+			NBTTagCompound itemProps = boonStack.stackTagCompound;
+			String owner = itemProps.getString("Owner");
+			String itemClass = itemProps.getString("Class");
+			
+			if(props.isClassHaste(playerClass) && props.isClassHaste(itemClass) && owner.equals(player.username)){
+				if(thiefspeed.getModifier(player.getPersistentID()) == null){
+					thiefspeed.applyModifier(speed);
+				} 
+			} else if(thiefspeed.getModifier(player.getPersistentID()) != null){
+				thiefspeed.removeModifier(speed);
+			}
+		} else if(thiefspeed.getModifier(player.getPersistentID()) != null){
+			thiefspeed.removeModifier(speed);
+		}
 		if (itemstack.stackTagCompound == null){
 			itemstack.setTagCompound(new NBTTagCompound());
 			itemstack.stackTagCompound.setString("Owner", "none");
@@ -127,7 +153,7 @@ public class BoonItem extends Item {
 			NBTTagCompound properties = itemstack.stackTagCompound;
 			String bcmclass = properties.getString("Class");
 			String owner = properties.getString("Owner");
-			List<String> list = Arrays.asList(DefaultClasses.tierTwoClasses);
+			List<String> list = Arrays.asList(BCMClasses.tierTwoClasses);
 		
 			if (list.contains(bcmclass) && !owner.equals("none")){
 				return true;

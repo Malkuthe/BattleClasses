@@ -1,16 +1,16 @@
 package battleclassmod;
 
+import java.io.File;
+
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import battleclassmod.commands.CommandHandler;
 import battleclassmod.config.ConfigHandler;
-import battleclassmod.config.Configs;
 import battleclassmod.guis.BCMGuiHandler;
 import battleclassmod.items.Items;
+import battleclassmod.items.crafting.BCMClasses;
 import battleclassmod.items.crafting.BoonCraftingHandler;
-import battleclassmod.items.crafting.ClassHandler;
-import battleclassmod.items.crafting.DefaultClasses;
+import battleclassmod.util.BCMClassConfigHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -22,8 +22,6 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @Mod( modid = BCMInfo.ID, name = BCMInfo.NAME, version = BCMInfo.VERSION )
 @NetworkMod( channels = {BCMInfo.CHANNEL}, clientSideRequired = true, serverSideRequired = true, packetHandler = BCMPacketHandler.class )
@@ -32,6 +30,8 @@ public class BattleClassMod {
 	
 	private static int modGuiIndex = 0;
 	public static final int GUI_CLASS_INTERFACE_INV = modGuiIndex++;
+	public static final String classConfigPath = "\\bcm\\classConfig.xml";
+	public static File confPath;
 	
 	@Instance(BCMInfo.ID)
 	public static BattleClassMod instance = new BattleClassMod();
@@ -39,6 +39,13 @@ public class BattleClassMod {
 	@EventHandler
 	public void preInit( FMLPreInitializationEvent event ){
 		ConfigHandler.Init(event.getSuggestedConfigurationFile());
+		this.confPath = event.getModConfigurationDirectory();
+		File classconf = new File(this.confPath + this.classConfigPath);
+		if (!classconf.isFile() || !classconf.exists()){
+			BCMClassConfigHandler.ClassCreate();
+		} else {
+			System.out.println("[BCM] classConfig.xml detected. Not creating new file.");
+		}
 		Items.init();
 		Items.addNames();
 		LanguageRegistry.instance().addStringLocalization("itemGroup.battleClasses", "en_US", "Battle Classes");
@@ -49,7 +56,7 @@ public class BattleClassMod {
 		MinecraftForge.EVENT_BUS.register(new BCMEventHandler());
 		NetworkRegistry.instance().registerGuiHandler(this, new BCMGuiHandler());
 		proxy.registerRenderers();
-		DefaultClasses.Init();
+		BCMClasses.Init();
 		BoonCraftingHandler.Init();
 		
 	}

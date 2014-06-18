@@ -1,6 +1,7 @@
 package battleclassmod.config;
 
 import java.io.File;
+import javax.xml.parsers.*;
 
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraftforge.common.Configuration;

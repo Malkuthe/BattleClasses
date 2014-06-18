@@ -17,15 +17,15 @@ public class ClassHandler {
 	
 	static ItemStack gold = new ItemStack(Item.ingotGold);
 	static ItemStack heart = new ItemStack(Items.songsItem,1,0);
-	private static Object[][] classRecipe = DefaultClasses.classRecipes;
+	private static Object[][] classRecipe = BCMClasses.classRecipes;
 	private static String[] boonClass;
 	
 	public static void BoonClass(int classnum){
-		boonClass = DefaultClasses.defaultClasses;
+		boonClass = BCMClasses.defaultClasses;
 		String bcmBoonClass = boonClass[classnum];
 		
 		for (int i = 0; i < INGREDIENTS_NUMBER; ++i){
-			classRecipe[classnum][i] = DefaultClasses.classRecipes[classnum][i];
+			classRecipe[classnum][i] = BCMClasses.classRecipes[classnum][i];
 		}
 		
 		ItemStack boonItem = new ItemStack(Items.boonItem);

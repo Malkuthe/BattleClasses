@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import battleclassmod.BCMInfo;
 import battleclassmod.BattleClassMod;
-import battleclassmod.items.crafting.DefaultClasses;
+import battleclassmod.items.crafting.BCMClasses;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -33,7 +33,7 @@ public class SongsItem extends Item{
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister icon){
-		icons  = new Icon[DefaultClasses.SONGS_NUMBER];
+		icons  = new Icon[BCMClasses.SONGS_NUMBER];
 		
 		for (int i = 0; i < icons.length; ++i){
 			icons[i] = icon.registerIcon(BCMInfo.ID + ":" + ItemInfo.songsItemUnlocalized[i]);

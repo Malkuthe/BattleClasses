@@ -8,14 +8,14 @@ import battleclassmod.config.Configs;
 import battleclassmod.items.ItemInfo;
 import battleclassmod.items.Items;
 
-public class DefaultClasses {
+public class BCMClasses {
 	
 	private static final int CLASSES_NUMBER = Configs.classNumber;
 	public static final int SONGS_NUMBER = 12;
 	
 	static HashMap<String, ItemStack> songMap = new HashMap<String, ItemStack>();
 	
-	public DefaultClasses(){
+	public BCMClasses(){
 	}
 	
 	public static void Init(){
@@ -61,6 +61,10 @@ public class DefaultClasses {
 	
 	public static final String[] tierTwoClasses = {
 		"Knight", "Mage", "Rogue", "Hunter"
+	};
+	
+	public static final String[] HasteClasses ={
+		"Thief", "Rogue"
 	};
 
 	public static final Object[][] classRecipes = {

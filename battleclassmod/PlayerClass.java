@@ -2,6 +2,8 @@ package battleclassmod;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.util.Arrays;
+import java.util.List;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import battleclassmod.config.Configs;
 import battleclassmod.inventories.BCMInterfaceInventory;
+import battleclassmod.items.crafting.BCMClasses;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 
@@ -49,7 +52,7 @@ public class PlayerClass implements IExtendedEntityProperties {
 		//setting variables
 		bcmClass.setString("PlayerClass", this.playerClass);
 		
-		this.inventory.writeToNBT(bcmClass);
+		inventory.writeToNBT(bcmClass);
 		
 		//adding custom tag to player's tag
 		compound.setTag(EXT_PROP_NAME, bcmClass);
@@ -67,7 +70,7 @@ public class PlayerClass implements IExtendedEntityProperties {
 		//retrieving data from tag compound
 		this.playerClass = bcmClass.getString("PlayerClass");
 		
-		this.inventory.readFromNBT(bcmClass);
+		inventory.readFromNBT(bcmClass);
 		
 		//debug
 		System.out.println("[PlayerClasses] loading class " + this.playerClass);
@@ -204,6 +207,14 @@ public class PlayerClass implements IExtendedEntityProperties {
 	
 	public String getPlayerClass(){
 		return this.playerClass;
+	}
+	
+	public boolean isClassHaste(String bcmclass){
+		List<String> hasteClasses = Arrays.asList(BCMClasses.HasteClasses);
+		if (hasteClasses.contains(bcmclass)){
+			return true;
+		}
+		return false;
 	}
 	
 }
