@@ -30,7 +30,7 @@ public class BattleClassMod {
 	
 	private static int modGuiIndex = 0;
 	public static final int GUI_CLASS_INTERFACE_INV = modGuiIndex++;
-	public static final String classConfigPath = "\\bcm\\classConfig.xml";
+	public static final String classConfigPath = "\\battleclassmodClassConfig.xml";
 	public static File confPath;
 	
 	@Instance(BCMInfo.ID)
@@ -56,7 +56,7 @@ public class BattleClassMod {
 		MinecraftForge.EVENT_BUS.register(new BCMEventHandler());
 		NetworkRegistry.instance().registerGuiHandler(this, new BCMGuiHandler());
 		proxy.registerRenderers();
-		BCMClasses.Init();
+		BCMClasses.readConfig();
 		BoonCraftingHandler.Init();
 		
 	}

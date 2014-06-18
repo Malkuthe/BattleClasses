@@ -1,26 +1,88 @@
 package battleclassmod.items.crafting;
 
-import java.util.HashMap;
+import java.io.File;
+import java.util.List;
+
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
 import battleclassmod.config.Configs;
-import battleclassmod.items.ItemInfo;
 import battleclassmod.items.Items;
+import battleclassmod.util.BCMClassConfigHandler;
 
 public class BCMClasses {
 	
 	private static final int CLASSES_NUMBER = Configs.classNumber;
 	public static final int SONGS_NUMBER = 12;
-	
-	static HashMap<String, ItemStack> songMap = new HashMap<String, ItemStack>();
+	public static final File classConfig = BCMClassConfigHandler.classConfig;
 	
 	public BCMClasses(){
 	}
 	
-	public static void Init(){
-		for (int i = 0; i < SONGS_NUMBER; ++i){
-			songMap.put(ItemInfo.songsItemUnlocalized[i], new ItemStack(Items.songsItem,1,i));
+	public static void readConfig(){
+		try {
+			SAXParserFactory factory = SAXParserFactory.newInstance();
+			SAXParser saxParser = factory.newSAXParser();
+			
+			DefaultHandler handler = new DefaultHandler() {
+				
+				boolean bClassName = false;
+				boolean bColour = false;
+				boolean bTag = false;
+				
+				public void startElement(String uri, String localName,String qName, 
+		                Attributes attributes) throws SAXException{
+					 
+					if (qName.equalsIgnoreCase("NAME")) {
+						bClassName = true;
+					}
+			 
+					if (qName.equalsIgnoreCase("COLOUR")) {
+						bColour = true;
+					}
+			 
+					if (qName.equalsIgnoreCase("TAG")) {
+						bTag = true;
+					}
+					
+				}
+				
+				public void endElement(String uri, String localName,
+						String qName) throws SAXException {
+				 
+					}
+				
+				public void characters(char ch[], int start, int length) throws SAXException {
+					 
+					if (bClassName) {
+						System.out.println("Class : " + new String(ch, start, length));
+						bClassName = false;
+					}
+			 
+					if (bColour) {
+						System.out.println("Colour : " + new String(ch, start, length));
+						bColour = false;
+					}
+			 
+					if (bTag) {
+						System.out.println("Tag : " + new String(ch, start, length));
+						bTag = false;
+					}
+			 
+				}
+			};
+			
+			saxParser.parse(classConfig, handler);
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	

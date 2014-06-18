@@ -21,7 +21,7 @@ import battleclassmod.BattleClassMod;
 
 public class BCMClassConfigHandler {
 	
-	private static File classConfig = new File(BattleClassMod.confPath + BattleClassMod.classConfigPath);
+	public static File classConfig = new File(BattleClassMod.confPath + BattleClassMod.classConfigPath);
 	
 	public static void ClassCreate(){
 		
